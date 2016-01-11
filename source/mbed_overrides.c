@@ -1,3 +1,6 @@
+#include <stdint.h>
+#include <stdlib.h>
+#include <time.h>
 
 // from http://www.st.com/web/en/resource/technical/document/reference_manual/CD00171190.pdf chapter 30.2
 #define STM_UUID_REGISTER_BASE_ADDRESS 0x1FFFF7E8
@@ -24,4 +27,23 @@ void mbed_mac_address(char *mac)
     mac[3] = (word0 & 0x00ff0000) >> 16;
     mac[4] = (word0 & 0x0000ff00) >> 8;
     mac[5] = (word0 & 0x000000ff);
+
+    unsigned int rand_1;
+    unsigned int rand_2;
+
+    long timer = 0;
+    /* initialize random seed: */
+    srand (time(NULL));
+
+    rand_1 = rand() % 255; //range from 0 to 255
+    rand_2 = rand() % 255; //range from 0 to 255
+
+    mac[0] = 0x00; //0xFF;//
+    mac[1] = 0x02; //0xFF;//
+    mac[2] = 0xF7; //0xFF;//
+    mac[3] = 0xF0; //0xFF;//
+    mac[4] = rand_1; //0xFF;//
+    mac[5] = rand_2; //0xFF;//
+
+
 }
